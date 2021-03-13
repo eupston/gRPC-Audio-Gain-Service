@@ -1,0 +1,30 @@
+{
+  "name": "grpc-audio-gain-service",
+  "version": "1.0.0",
+  "description": "A GRPC bi-directional streaming service that adjusts and returns the gain of an incoming audio signal.",
+  "main": "index.js",
+  "scripts": {
+    "build": "sh proto/build.sh",
+    "server": "go run server/server.go",
+    "client": "ts-node client/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eupston/gRPC-Audio-Gain-Service.git"
+  },
+  "author": "Eugene Upston",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/google-protobuf": "^3.7.4",
+    "grpc-tools": "^1.10.0",
+    "grpc_tools_node_protoc_ts": "^5.1.3",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.3",
+    "grpc": "^1.24.6"
+  },
+  "bugs": {
+    "url": "https://github.com/eupston/gRPC-Audio-Gain-Service/issues"
+  },
+  "homepage": "https://github.com/eupston/gRPC-Audio-Gain-Service#readme"
+}
