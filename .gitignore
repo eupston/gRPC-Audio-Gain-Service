@@ -1,3 +1,6 @@
-*.pb.go
-*_pb.js
-*_pb.d.ts
+.idea/
+
+#TODO figure out how to not commit generated code for go packages
+#*.pb.go
+#*_pb.js
+#*_pb.d.ts
