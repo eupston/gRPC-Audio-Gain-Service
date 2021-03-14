@@ -4,9 +4,9 @@
   "description": "A GRPC bi-directional streaming service that adjusts and returns the gain of an incoming audio signal.",
   "main": "index.js",
   "scripts": {
-    "build": "sh proto/build.sh",
-    "server": "go run server/server.go",
-    "client": "ts-node client/index.ts",
+    "build": "sh src/proto/build.sh",
+    "server": "go run src/server/server.go",
+    "client": "ts-node src/client/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
