@@ -1,6 +1,8 @@
 package audiostreamer
 
 import (
+	"bytes"
+	"encoding/binary"
 	"io"
 	"log"
 
@@ -21,8 +23,12 @@ func (s *Server) AudioStream(stream pb.AudioStream_AudioStreamServer) error {
 			return err
 		}
 
-		log.Printf(in.Timestamp)
+		log.Print(string(in.Data))
+		buf := bytes.NewReader(in.Data)
+		var i int16
+		_ = binary.Read(buf, binary.BigEndian, &i)
 
+		log.Printf(in.Timestamp)
 		if err := stream.Send(in); err != nil {
 			return err
 		}
