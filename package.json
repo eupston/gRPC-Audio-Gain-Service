@@ -26,5 +26,8 @@
   "bugs": {
     "url": "https://github.com/eupston/gRPC-Audio-Gain-Service/issues"
   },
-  "homepage": "https://github.com/eupston/gRPC-Audio-Gain-Service#readme"
+  "homepage": "https://github.com/eupston/gRPC-Audio-Gain-Service#readme",
+  "dependencies": {
+    "naudiodon": "^2.3.4"
+  }
 }
