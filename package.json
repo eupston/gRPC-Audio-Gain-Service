@@ -28,6 +28,7 @@
   },
   "homepage": "https://github.com/eupston/gRPC-Audio-Gain-Service#readme",
   "dependencies": {
-    "naudiodon": "^2.3.4"
+    "naudiodon": "^2.3.4",
+    "speaker": "^0.5.3"
   }
 }
