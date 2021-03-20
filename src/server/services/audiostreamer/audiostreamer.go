@@ -1,12 +1,9 @@
 package audiostreamer
 
 import (
-	"bytes"
-	"encoding/binary"
+	pb "github.com/eupston/gRPC-Audio-Gain-Service/src/proto"
 	"io"
 	"log"
-
-	pb "github.com/eupston/gRPC-Audio-Gain-Service/src/proto"
 )
 
 type Server struct {
@@ -23,12 +20,13 @@ func (s *Server) AudioStream(stream pb.AudioStream_AudioStreamServer) error {
 			return err
 		}
 
-		log.Print(string(in.Data))
-		buf := bytes.NewReader(in.Data)
-		var i int16
-		_ = binary.Read(buf, binary.BigEndian, &i)
-
-		log.Printf(in.Timestamp)
+		bytearr := make([]byte, len(in.Data))
+		for i, samplebyte := range in.Data {
+			log.Println("samplebyte ", samplebyte)
+			sampleint := int(samplebyte) * 2
+			bytearr[i] = byte(sampleint)
+		}
+		//in.Data = bytearr
 		if err := stream.Send(in); err != nil {
 			return err
 		}
