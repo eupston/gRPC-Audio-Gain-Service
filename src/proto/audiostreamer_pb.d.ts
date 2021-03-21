@@ -13,6 +13,8 @@ export class AudioSample extends jspb.Message {
     getData_asU8(): Uint8Array;
     getData_asB64(): string;
     setData(value: Uint8Array | string): AudioSample;
+    getGainamt(): number;
+    setGainamt(value: number): AudioSample;
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): AudioSample.AsObject;
@@ -28,5 +30,6 @@ export namespace AudioSample {
     export type AsObject = {
         timestamp: string,
         data: Uint8Array | string,
+        gainamt: number,
     }
 }

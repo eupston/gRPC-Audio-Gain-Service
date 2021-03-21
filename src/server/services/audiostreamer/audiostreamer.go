@@ -27,8 +27,7 @@ func (s *Server) AudioStream(stream pb.AudioStream_AudioStreamServer) error {
 			numBytes := []byte{in.Data[i], in.Data[i+1]}
 			sample := binary.LittleEndian.Uint16(numBytes)
 
-			gainAmt := 6.0
-			gainConvertedSample := float64(sample) * gainAmt
+			gainConvertedSample := float32(sample) * in.GainAmt
 			//TODO find good dsp clipping formula to use float multiplier:
 			// if(gainConvertedSample > 65535){
 			//	gainConvertedSample = 65530

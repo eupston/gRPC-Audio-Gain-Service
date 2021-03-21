@@ -25,14 +25,12 @@ async function startAudioStream() {
     let sample = new AudioSample()
     let stream = client.audioStream()
 
-    //Start recording microphone streaming
-    micstream.start();
-
     // When mic stream receives data send to server
     // Buffer size is 4096 samples per chan ( stereo interleaved ) or ~180 ms @ 44100
     // 16Bit UNSIGNED int is between 0 - 65535
     micstream.on('data', (data) => {
         sample.setData(data)
+        sample.setGainamt(2.0)
         sample.setTimestamp(new Date().getMilliseconds() + " from client")
         stream.write(sample)
     })
@@ -44,6 +42,9 @@ async function startAudioStream() {
             speaker.write(sample);
         }
     })
+
+    //Start recording microphone streaming
+    micstream.start();
 }
 
 startAudioStream()

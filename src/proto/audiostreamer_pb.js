@@ -2,6 +2,7 @@
 /**
  * @fileoverview
  * @enhanceable
+ * @suppress {missingRequire} reports error on implicit type usages.
  * @suppress {messageConventions} JS Compiler reports an error if a variable or
  *     field starts with 'MSG_' and isn't a translatable message.
  * @public
@@ -69,7 +70,8 @@ proto.audiostreamer.AudioSample.prototype.toObject = function(opt_includeInstanc
 proto.audiostreamer.AudioSample.toObject = function(includeInstance, msg) {
   var f, obj = {
     timestamp: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    data: msg.getData_asB64()
+    data: msg.getData_asB64(),
+    gainamt: jspb.Message.getFloatingPointFieldWithDefault(msg, 3, 0.0)
   };
 
   if (includeInstance) {
@@ -114,6 +116,10 @@ proto.audiostreamer.AudioSample.deserializeBinaryFromReader = function(msg, read
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
       msg.setData(value);
       break;
+    case 3:
+      var value = /** @type {number} */ (reader.readFloat());
+      msg.setGainamt(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -154,6 +160,13 @@ proto.audiostreamer.AudioSample.serializeBinaryToWriter = function(message, writ
   if (f.length > 0) {
     writer.writeBytes(
       2,
+      f
+    );
+  }
+  f = message.getGainamt();
+  if (f !== 0.0) {
+    writer.writeFloat(
+      3,
       f
     );
   }
@@ -217,6 +230,24 @@ proto.audiostreamer.AudioSample.prototype.getData_asU8 = function() {
  */
 proto.audiostreamer.AudioSample.prototype.setData = function(value) {
   return jspb.Message.setProto3BytesField(this, 2, value);
+};
+
+
+/**
+ * optional float GainAmt = 3;
+ * @return {number}
+ */
+proto.audiostreamer.AudioSample.prototype.getGainamt = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 3, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.audiostreamer.AudioSample} returns this
+ */
+proto.audiostreamer.AudioSample.prototype.setGainamt = function(value) {
+  return jspb.Message.setProto3FloatField(this, 3, value);
 };
 
 
