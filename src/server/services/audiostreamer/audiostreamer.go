@@ -1,9 +1,9 @@
 package audiostreamer
 
 import (
+	"encoding/binary"
 	pb "github.com/eupston/gRPC-Audio-Gain-Service/src/proto"
 	"io"
-	"log"
 )
 
 type Server struct {
@@ -20,13 +20,24 @@ func (s *Server) AudioStream(stream pb.AudioStream_AudioStreamServer) error {
 			return err
 		}
 
-		bytearr := make([]byte, len(in.Data))
-		for i, samplebyte := range in.Data {
-			log.Println("samplebyte ", samplebyte)
-			sampleint := int(samplebyte) * 2
-			bytearr[i] = byte(sampleint)
+		convertedSampleArr := make([]byte, len(in.Data))
+
+		for i := 0; i < len(in.Data); i += 2 {
+			//Assumes 16 bit sample
+			numBytes := []byte{in.Data[i], in.Data[i+1]}
+			sample := binary.LittleEndian.Uint16(numBytes)
+
+			gainAmt := 6.0
+			gainConvertedSample := float64(sample) * gainAmt
+			//TODO find good dsp clipping formula to use float multiplier:
+			// if(gainConvertedSample > 65535){
+			//	gainConvertedSample = 65530
+			// }
+			sample = uint16(gainConvertedSample)
+			convertedSampleArr[i] = byte(sample)
+			convertedSampleArr[i+1] = byte(sample >> 8)
 		}
-		//in.Data = bytearr
+		in.Data = convertedSampleArr
 		if err := stream.Send(in); err != nil {
 			return err
 		}
